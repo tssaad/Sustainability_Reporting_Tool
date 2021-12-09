@@ -6,8 +6,8 @@ class Item(models.Model):
     description = models.TextField() 
     is_active = models.BooleanField(default=True)
     dimension = models.ForeignKey("Dimension", on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
+    created_at = models.DateField(auto_now=True)
+    updated_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.item
