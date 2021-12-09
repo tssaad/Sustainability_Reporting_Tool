@@ -6,6 +6,7 @@ from framework.models import Item
 class AssessmentInfo(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
+    # user
     created_at = models.TimeField(auto_now_add=True)
     updated_at = models.TimeField(auto_now=True)
     is_fininshed = models.BooleanField(default=False)
