@@ -1,12 +1,12 @@
 from django.db import models
 
 continent_list = [
-    ('EU','Europe'),
-    ('AF','Africa'),
-    ('NA','North America'),
-    ('SA','South America'),
-    ('AS','Asia'),
-    ('AU','Australia'),
+    ('Europe','Europe'),
+    ('Africa','Africa'),
+    ('North America','North America'),
+    ('South America','South America'),
+    ('Asia','Asia'),
+    ('Australia','Australia'),
 ]
 
 
