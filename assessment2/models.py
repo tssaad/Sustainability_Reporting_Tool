@@ -9,19 +9,19 @@ class WebAssessmentInfo(models.Model):
     name = models.CharField(max_length=255, verbose_name="Assessment Name")
     description = models.TextField(verbose_name="Assessment Description")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now=True)
-    finish_at = models.DateField(blank=True, null=True)
-    is_finished = models.BooleanField(default=False)
+    created_at = models.TimeField(auto_now=True)
+    finish_at = models.TimeField(blank=True, null=True)
+    is_fininshed = models.BooleanField(default=False)
     institute = models.ForeignKey(Institute, on_delete=models.CASCADE, verbose_name="Website of Institute to be assessed")
 
     class Meta:
         verbose_name_plural = "Web Assessment Info"
 
 class WebsiteAssessmentDetail(models.Model):
-    assessment = models.ForeignKey(WebAssessmentInfo, on_delete=models.CASCADE)
+    asessment = models.ForeignKey(WebAssessmentInfo, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.TimeField(auto_now=True)
+    updated_at = models.TimeField(auto_now_add=True)
     value = models.BooleanField(default=False)
 
     class Meta:
