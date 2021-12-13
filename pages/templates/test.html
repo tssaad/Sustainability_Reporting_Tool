@@ -1,0 +1,20 @@
+{% for testmonial in testmonials %}
+<div class="single_carousel">
+    <div class="row">
+        <div class="col-lg-11">
+            <div class="single_testmonial d-flex align-items-center">
+                <div class="thumb">
+                    <img src="img/testmonial/author.png" alt="">
+                    <div class="quote_icon">
+                        <i class="Flaticon flaticon-quote"></i>
+                    </div>
+                </div>
+                <div class="info">
+                    <span>{{testmonial.title}}</span>
+                    <p>{{testmonial.body}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

@@ -26,12 +26,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = 'authentication.User'
+
 ALLOWED_HOSTS = []
 
+#LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,11 +44,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # ready apps
+    'bootstrap4',
 
     # my apps
-    'framework',
-    'institute',
     'settings',
+    'authentication',
+    'institute',
+    'framework',
+    'assessment',
+    'pages',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +92,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sr_database',
+        'NAME': 'sr_database_absrtact',
         'USER': 'sr',
         'PASSWORD': 'ecom123edu',
         'HOST': '127.0.0.1',

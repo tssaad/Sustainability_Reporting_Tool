@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>SR Tool</title>
+    <title>SRTool - {% block title %}{% endblock title %}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -53,11 +53,12 @@
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="index.html">home</a></li>
+                                            <li><a href="{% url 'home:home' %}">home</a></li>
                                             <li><a href="jobs.html">Browse Reports</a></li>
                                             <li><a href="#">Insitutes<i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                    <li><a href="candidate.html">Insitutes List </a></li>
+                                                    <li><a href="{% url 'institute:institutes_list' %}">Insitutes List</a></li>
+                                                    <li><a href="{% url 'institute:add_institute' %}">Add Insitute</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="#">blog <i class="ti-angle-down"></i></a>
@@ -67,18 +68,31 @@
                                                 </ul>
                                             </li>
                                             <li><a href="contact.html">Contact</a></li>
+                                            {% if user.is_authenticated %}                        
+                                                <li><a href="#">Hey {{request.user.first_name}}<i class="ti-angle-down"></i></a>
+                                                    <ul class="submenu">
+                                                        <li><a href="{% url 'accounts:profile' %}">Profile </a></li>
+                                                        <li><a href="{% url 'accounts:profile_edit' %}">Edit Profile </a></li>
+                                                        <li><a href="{% url 'password_change' %}">Change Password</a></li>
+                                                        <li><a href="{% url 'logout' %}">Log out</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                                 <div class="Appointment">
-                                    <div class="phone_num d-none d-xl-block">
-                                        <a href="#">Log in</a>
-                                    </div>
-                                    <div class="d-none d-lg-block">
-                                        <a class="boxed-btn3" href="#">Start an assessment</a>
-                                    </div>
+                                    {% if user.is_authenticated %}                        
+                                        <div class="d-none d-lg-block">
+                                            <a class="boxed-btn3" href="#">Start an assessment</a>
+                                        </div>
+                                    {% else %}
+                                        <div class="d-none d-lg-block">
+                                            <a class="boxed-btn3" href="{% url 'login' %}">Log in</a>
+                                        </div>
+                                {% endif %}
                                 </div>
                             </div>
                             <div class="col-12">

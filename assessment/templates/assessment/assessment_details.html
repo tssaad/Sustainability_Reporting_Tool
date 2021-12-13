@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Assessment Detials{% endblock title %}
+{% block body %}
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>{{assessment_details.name}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+
+<div class="job_details_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="job_details_header">
+                    <div class="single_jobs white-bg d-flex justify-content-between">
+                        <div class="jobs_left d-flex align-items-center">
+                            <div class="thumb">
+                                {% if institute.img %}
+                                    <img src="{{assessment_details.assessment.institute.img.url}}" class="institute-list" alt="">
+                                {% else %}
+                                    <img src="{% static 'img/institution-icon-3.png' %}" class="institute-list" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="jobs_conetent">
+                                <a href="#"><h4>{{assessment_details.name}}</h4></a>
+                                <div class="links_locat d-flex align-items-center">
+                                    <div class="location">
+                                        <p> <i class="fa fa-map-marker"></i> {{assessment_details.assessment.institute.city}}/{{assessment_details.assessment.institute.city.province.country}}</p>
+                                    </div>
+                                    <div class="location">
+                                        <p> <i class="fa fa-clock-o"></i> {{assessment_details.assessment.institute.type}}/{{assessment_details.assessment.institute.business_type}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="jobs_right">
+                            <div class="apply_now">
+                                <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+                <div class="descript_wrap white-bg">
+                    <div class="single_wrap">
+                        {% include 'messages.html' %}
+                        <h4>Description</h4>
+                        <p>{{assessment_details.description}}</p>
+                    </div>
+                    <div class="p-5">
+                        {% if assessment_details.assessment.is_finished = False %}{% endif %}
+                            <a href="" class="boxed-btn4">Edit Asessment</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="job_sumary">
+                    <div class="summery_header">
+                        <h3>Summery</h3>
+                    </div>
+                    <div class="job_content">
+                        <ul>
+                            <li>Added on: <span>{{assessment_details.assessment.created_at}}</span></li>
+                            <li>Added by: <span>{{assessment_details.assessment.user.first_name}}</span></li>
+                            {% if assessment_details.assessment.is_finished = False %}{% endif %}
+                                <li>Finised on: <span>{{assessment_details.assessment.finish_at}}</span></li>
+                            {% endif %}
+                            <li>Other Researchers: <span></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="share_wrap d-flex">
+                    <span>Share at:</span>
+                    <ul>
+                        <li><a href="#"> <i class="fa fa-facebook"></i></a> </li>
+                        <li><a href="#"> <i class="fa fa-google-plus"></i></a> </li>
+                        <li><a href="#"> <i class="fa fa-twitter"></i></a> </li>
+                        <li><a href="#"> <i class="fa fa-envelope"></i></a> </li>
+                    </ul>
+                </div>
+                <div class="job_location_wrap">
+                    <div class="job_lok_inner">
+                        <div id="map" style="height: 200px;"></div>
+                        <script>
+                          function initMap() {
+                            var uluru = {lat: -25.363, lng: 131.044};
+                            var grayStyles = [
+                              {
+                                featureType: "all",
+                                stylers: [
+                                  { saturation: -90 },
+                                  { lightness: 50 }
+                                ]
+                              },
+                              {elementType: 'labels.text.fill', stylers: [{color: '#ccdee9'}]}
+                            ];
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                              center: {lat: -31.197, lng: 150.744},
+                              zoom: 9,
+                              styles: grayStyles,
+                              scrollwheel:  false
+                            });
+                          }
+                          
+                        </script>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&callback=initMap"></script>
+                        
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
