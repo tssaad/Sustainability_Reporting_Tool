@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="bradcam_text">
-                    <h3>Assessment Task: {{assessment.name}}</h3>
+                    <h3>{{assessment_details.name}}</h3>
                 </div>
             </div>
         </div>
@@ -24,19 +24,19 @@
                         <div class="jobs_left d-flex align-items-center">
                             <div class="thumb">
                                 {% if institute.img %}
-                                    <img src="{{assessment.institute.img.url}}" class="institute-list" alt="">
+                                    <img src="{{assessment_details.assessment.institute.img.url}}" class="institute-list" alt="">
                                 {% else %}
                                     <img src="{% static 'img/institution-icon-3.png' %}" class="institute-list" alt="">
                                 {% endif %}
                             </div>
                             <div class="jobs_conetent">
-                                <a href="#"><h4>{{assessment.name}}</h4></a>
+                                <a href="#"><h4>{{assessment_details.name}}</h4></a>
                                 <div class="links_locat d-flex align-items-center">
                                     <div class="location">
-                                        <p> <i class="fa fa-map-marker"></i> {{assessment.institute.city}}/{{assessment.institute.city.province.country}}</p>
+                                        <p> <i class="fa fa-map-marker"></i> {{assessment_details.assessment.institute.city}}/{{assessment_details.assessment.institute.city.province.country}}</p>
                                     </div>
                                     <div class="location">
-                                        <p> <i class="fa fa-clock-o"></i> {{assessment.institute.type}}/{{assessment.institute.business_type}}</p>
+                                        <p> <i class="fa fa-clock-o"></i> {{assessment_details.assessment.institute.type}}/{{assessment_details.assessment.institute.business_type}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -54,10 +54,10 @@
                     <div class="single_wrap">
                         {% include 'messages.html' %}
                         <h4>Description</h4>
-                        <p>{{assessment.description}}</p>
+                        <p>{{assessment_details.description}}</p>
                     </div>
                     <div class="p-5">
-                        {% if assessment.is_finished %}
+                        {% if assessment_details.assessment.is_finished = False %}{% endif %}
                             <a href="" class="boxed-btn4">Edit Asessment</a>
                         {% endif %}
                     </div>
@@ -70,10 +70,10 @@
                     </div>
                     <div class="job_content">
                         <ul>
-                            <li>Added on: <span>{{assessment.created_at| date:'Y-m-d'}}</span></li>
-                            <li>Added by: <span>{{assessment.user.first_name}}</span></li>
-                            {% if assessment.is_finished %}
-                                <li>Finised on: <span>{{assessment.finish_at}}</span></li>
+                            <li>Added on: <span>{{assessment_details.assessment.created_at}}</span></li>
+                            <li>Added by: <span>{{assessment_details.assessment.user.first_name}}</span></li>
+                            {% if assessment_details.assessment.is_finished = False %}{% endif %}
+                                <li>Finised on: <span>{{assessment_details.assessment.finish_at}}</span></li>
                             {% endif %}
                             <li>Other Researchers: <span></span></li>
                         </ul>

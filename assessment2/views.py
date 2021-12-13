@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
-from datetime import datetime
+from project.settings import TIME_ZONE
 
 from .forms import StartWebAssesment, WebsiteAssessmentDetailForm
 
@@ -30,11 +30,11 @@ def your_assessment(request):
     return render(request, 'assessment/assessment_list.html', context)
 
 def assessment_details(request, id):
-    assessment = get_object_or_404(WebAssessmentInfo, id=id)
+    assessment_details = get_object_or_404(WebsiteAssessmentDetail, assessment=id)
     context = {
-        'assessment' : assessment
+        'assessment_details' : assessment_details
     }
-    return render(request, 'assessment/assessment_details.html', context)
+    return render(request, 'asessment/assessment_details.html', context)
 
 
 @login_required
@@ -43,19 +43,18 @@ def start_web_assessment(request):
         form = StartWebAssesment(request.POST)
         if form.is_valid():
             # in case of new assessment
-            existing = WebAssessmentInfo.objects.filter(user=request.user, institute=form.cleaned_data['institute'], is_finished=False).first()
+            existing = WebAssessmentInfo.objects.filter(user=request.user, institute=form.cleaned_data['institute'], is_fininshed=False).first()
             if not existing:
                 myform = form.save(commit=False)
                 myform.user = request.user                
                 myform.save()
 
-                current_assessment = WebAssessmentInfo.objects.get(user=request.user, institute=form.cleaned_data['institute'], is_finished=False)
+                current_assessment = WebAssessmentInfo.objects.get(user=request.user, institute=form.cleaned_data['institute'], is_fininshed=False)
                 id=current_assessment.id
 
                 message = "A new assessment task has been added!"
                 messages.add_message(request, messages.SUCCESS, message)
-
-                auto_add_items(current_assessment)
+                auto_add_items(id)
                 message = "All items of the assessment framework have automatically been added to your new task. The default value is FALSE to all of them."
                 messages.add_message(request, messages.INFO, message)
                 
@@ -77,15 +76,20 @@ def start_web_assessment(request):
     return render(request, 'assessment/add_web_assessment.html', context)
 
 
-def auto_add_items(current_assessment):
+def auto_add_items(assessment):
     try:
         items = Item.objects.all()
     except ObjectDoesNotExist:
         return False
-
     for item in items:
-        WebsiteAssessmentDetail.objects.create(assessment=current_assessment, item=item, value=False)
-
+            print("+++++++++++++++=")
+            newform = WebsiteAssessmentDetailForm()
+            newform.assessment = assessment
+            newform.item = item
+            newform.created_at = timezone.now()
+            newform.updated_at = timezone.now()
+            newform.value = False
+            newform.save()
     return True
         
 
